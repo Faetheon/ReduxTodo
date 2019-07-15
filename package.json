@@ -1,0 +1,63 @@
+{
+  "name": "reduxtodo",
+  "version": "1.0.0",
+  "description": "CRUDdy Redux Todo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:build": "webpack -w",
+    "dev:start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faetheon/ReduxTodo.git"
+  },
+  "keywords": [
+    "Redux",
+    "Typescript",
+    "React"
+  ],
+  "author": "Nathan Hill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faetheon/ReduxTodo/issues"
+  },
+  "homepage": "https://github.com/Faetheon/ReduxTodo#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.0.3",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/lodash": "^4.14.135",
+    "@types/redux-logger": "^3.0.7",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "dotenv": "^8.0.0",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1",
+    "pg": "^7.11.0",
+    "redux-logger": "^3.0.6",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.14",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.1"
+  }
+}
