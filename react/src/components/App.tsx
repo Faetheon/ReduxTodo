@@ -42,8 +42,8 @@ const mapStateToProps = (state: reduxStore) => ({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  createItem: (title: string, content: string, id: number, isChecked: boolean, date: Date) =>
-    dispatch(ACTIONS.createItem(title, content, id, isChecked, date)),
+  createItem: (title: string, content: string, id: number, isChecked: boolean, createdOn: Date) =>
+    dispatch(ACTIONS.createItem(title, content, id, isChecked, createdOn)),
   deleteItem: (id: number) => dispatch(ACTIONS.deleteItem(id)),
   updateItem: (id: number) => dispatch(ACTIONS.updateItem(id))
 });
