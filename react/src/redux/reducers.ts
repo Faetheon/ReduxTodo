@@ -59,7 +59,7 @@ const reducer = (state = defaultState, action: any) => {
         content: action.payload.content,
         id: action.payload.id,
         isChecked: action.payload.isChecked,
-        date: action.payload.date
+        createdOn: action.payload.createdOn
       };
       newState.toDoList[action.payload.id] = toDo;
       return newState;
