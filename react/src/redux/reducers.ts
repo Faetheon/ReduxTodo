@@ -45,25 +45,31 @@ export default todoReducer;
  */
 import { reduxStore } from '../interfaces/reduxStore';
 import ACTIONS from './actions';
-import { toDo } from '../interfaces/toDo';
+import { toDoItem } from '../interfaces/toDoItem';
 
-export const defaultState: reduxStore = {toDoList: []};
+export const defaultState: reduxStore = {toDoList: {}};
 
 const reducer = (state = defaultState, action: any) => {
-  const newState: reduxStore = {toDoList: []};
+  const newState: reduxStore = {toDoList: {}};
   Object.assign(newState.toDoList, state.toDoList);
   switch(action.type) {
     case ACTIONS.Types.CREATE_ITEM: {
-      const toDo: toDo = {
+      const toDo: toDoItem = {
         title: action.payload.title,
         content: action.payload.content,
         id: action.payload.id,
+        isChecked: action.payload.isChecked,
+        date: action.payload.date
       };
-      newState.toDoList.push(toDo);
+      newState.toDoList[action.payload.id] = toDo;
       return newState;
     }
     case ACTIONS.Types.DELETE_ITEM: {
-      newState.toDoList.splice(newState.toDoList.indexOf(action.payload), 1);
+      delete newState.toDoList[action.payload];
+      return newState;
+    }
+    case ACTIONS.Types.UPDATE_ITEM: {
+      newState.toDoList[action.payload].isChecked = !newState.toDoList[action.payload].isChecked;
       return newState;
     }
     default:
