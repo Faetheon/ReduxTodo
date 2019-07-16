@@ -124,16 +124,18 @@ class App extends React.Component {
           <ToDo updateItem={this.props.updateItem.bind(this)} deleteItem={this.props.deleteItem.bind(this)} attributes={{ ...this.props.toDoList[toDo] }} key={this.props.toDoList[toDo].id} />
         ))}
         {
-          console.log(fetch('/graphql', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            },
-            body: JSON.stringify({query: "{ hello {id title content is_checked created_on}}"})
-          })
-            .then(r => r.json())
-            .then(data => console.log('data returned:', data)))
+          // console.log(fetch('/graphql', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //     'Accept': 'application/json',
+          //   },
+          //   body: JSON.stringify({query: "{ hello {id title content is_checked created_on}}"})
+          // })
+          //   .then(r => {
+          //     const res = r.json();
+          //     res.data.hello.forEach
+          //   }))
         }
       </AppContainer>
     );
