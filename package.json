@@ -4,9 +4,10 @@
   "description": "CRUDdy Redux Todo app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:build": "webpack -w",
-    "dev:start": "nodemon server/index.js"
+    "dev:build": "webpack -w -d",
+    "dev:start": "nodemon server/index.js",
+    "build": "webpack -w -p",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
