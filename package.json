@@ -6,7 +6,7 @@
   "scripts": {
     "dev:build": "webpack -w -d",
     "dev:start": "nodemon server/index.js",
-    "build": "webpack -w -p",
+    "build": "webpack -p",
     "start": "node server/index.js"
   },
   "repository": {
