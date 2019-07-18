@@ -41,7 +41,9 @@ const root = {
     return getRows();
   },
   createTodo: (args) => {
-    const {title, content, is_checked, created_on} = args;
+    let {title, content, is_checked, created_on} = args;
+    title = title.replace(/'/g, '\'\'');
+    content = content.replace(/'/g, '\'\'');
     async function getId() {
       try {
         client.query(`insert into todos(title, content, is_checked, created_on) values ('${title}', '${content}', ${is_checked}, '${created_on}')`)
