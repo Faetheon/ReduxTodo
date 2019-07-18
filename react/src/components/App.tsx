@@ -6,6 +6,7 @@ import ToDo from "./ToDo";
 
 import { reduxStore } from "../interfaces/reduxStore";
 import ACTIONS from "../redux/actions";
+import populateStateFromDatabase from "../helperFunctions/populateStateFromDatabase";
 
 const Form = styled.form`
   display: flex;
@@ -40,18 +41,23 @@ const SubmitButton = styled.input`
 const mapStateToProps = (state: reduxStore) => ({
   toDoList: state.toDoList
 });
-
 const mapDispatchToProps = (dispatch: Function) => ({
-  createItem: (title: string, content: string, id: number, isChecked: boolean, createdOn: Date) =>
-    dispatch(ACTIONS.createItem(title, content, id, isChecked, createdOn)),
+  createItem: (
+    title: string,
+    content: string,
+    is_checked: boolean,
+    created_on: string
+  ) => dispatch(ACTIONS.createItem(title, content, is_checked, created_on)),
   deleteItem: (id: number) => dispatch(ACTIONS.deleteItem(id)),
-  updateItem: (id: number) => dispatch(ACTIONS.updateItem(id))
+  updateItem: (id: number) => dispatch(ACTIONS.updateItem(id)),
+  populateState: (id: number, title: string, content: string, is_checked: boolean, created_on: string) => dispatch(ACTIONS.populateState(id, title, content, is_checked, created_on))
 });
 
 interface appProps {
   createItem: Function;
   deleteItem: Function;
   updateItem: Function;
+  populateState: Function
   toDoList: any;
 }
 
@@ -60,7 +66,6 @@ interface App {
   state: {
     title: string;
     content: string;
-    i: number
   };
   handleSubmit: Function;
   handleChange: Function;
@@ -72,18 +77,16 @@ class App extends React.Component {
     this.state = {
       title: "",
       content: "",
-      i: 0
     };
 
     this.handleSubmit = () => {
       this.props.createItem(
         this.state.title.length ? this.state.title : "ToDo",
         this.state.content,
-        this.state.i,
         false,
-        new Date()
+        new Date().toString().slice(0, 24)
       );
-      this.setState({ title: "", content: "", i: this.state.i + 1});
+      this.setState({ title: "", content: ""});
     };
 
     this.handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +94,10 @@ class App extends React.Component {
         [event.target.name]: event.target.value
       });
     };
+  }
+
+  componentWillMount() {
+    populateStateFromDatabase(this.props.populateState.bind(this));
   }
 
   render() {
@@ -120,23 +127,14 @@ class App extends React.Component {
           />
           <SubmitButton type="submit" />
         </Form>
-        {Object.keys(this.props.toDoList).map((toDo: string) => (
-          <ToDo updateItem={this.props.updateItem.bind(this)} deleteItem={this.props.deleteItem.bind(this)} attributes={{ ...this.props.toDoList[toDo] }} key={this.props.toDoList[toDo].id} />
+        {Object.keys(this.props.toDoList).map((toDoKey: string) => (
+          <ToDo
+            updateItem={this.props.updateItem.bind(this)}
+            deleteItem={this.props.deleteItem.bind(this)}
+            attributes={{ ...this.props.toDoList[toDoKey] }}
+            key={this.props.toDoList[toDoKey].id}
+          />
         ))}
-        {
-          // console.log(fetch('/graphql', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //     'Accept': 'application/json',
-          //   },
-          //   body: JSON.stringify({query: "{ hello {id title content is_checked created_on}}"})
-          // })
-          //   .then(r => {
-          //     const res = r.json();
-          //     res.data.hello.forEach
-          //   }))
-        }
       </AppContainer>
     );
   }
