@@ -60,6 +60,10 @@ const reducer = (state = defaultState, action: any) => {
         is_checked: action.payload.is_checked,
         created_on: action.payload.created_on
       };
+      toDo.title = toDo.title.replace(/\\/g, '\\\\');
+      toDo.content = toDo.content.replace(/\\/g, '\\\\');
+      toDo.title = toDo.title.replace(/"/g, '\\"');
+      toDo.content = toDo.content.replace(/"/g, '\\"');
       (async function(title: String, content: String, is_checked: Boolean, created_on: string) {
         let response = await fetch('/graphql', {
           method: 'POST',
@@ -79,7 +83,6 @@ const reducer = (state = defaultState, action: any) => {
         });
         
         let result = await response.json();
-        console.log(result, newState);
           toDo.id = result.data.createTodo.id;
           newState.toDoList[toDo.id] = toDo;
         return newState;
