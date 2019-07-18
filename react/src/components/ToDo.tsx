@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { toDoItem } from '../interfaces/toDoItem';
 
 const ToDoContainer = styled.div`
+  margin-bottom: 15px;
   display: flex;
   flex-flow: row;
 `;
 
 const DeleteButton = styled.button`
-  flex-grow: 1;
   color: red;
   margin-left: 15px;
+  font-weight: 800;
 `;
 
 const ToDoText = styled.div`
@@ -30,7 +31,6 @@ const ToDoContent = styled.div`
 const CheckBox = styled.input`
   align-self: center;
   margin-right: 15px;
-  flex-grow: 1;
 `;
 
 interface ToDoProps {
