@@ -41,6 +41,7 @@ const SubmitButton = styled.input`
 const mapStateToProps = (state: reduxStore) => ({
   toDoList: state.toDoList
 });
+
 const mapDispatchToProps = (dispatch: Function) => ({
   createItem: (
     title: string,
