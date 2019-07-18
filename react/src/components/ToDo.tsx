@@ -41,10 +41,10 @@ interface ToDoProps {
 
 const ToDo = (props: ToDoProps) => {
   const {title, content, id} = props.attributes;
-  const [isChecked, updateIsChecked] = useState<boolean>(props.attributes.isChecked);
+  const [is_checked, updateis_checked] = useState<boolean>(props.attributes.is_checked);
   return (
     <ToDoContainer>
-      <CheckBox type="checkbox" checked={isChecked} onChange={() => {props.updateItem(props.attributes.id); updateIsChecked(!isChecked)}} />
+      <CheckBox type="checkbox" checked={is_checked} onChange={() => {props.updateItem(props.attributes.id); updateis_checked(!is_checked)}} />
       <ToDoText>
         <ToDoTitle>
           {title.slice(0, 1).toUpperCase() + title.slice(1)}
