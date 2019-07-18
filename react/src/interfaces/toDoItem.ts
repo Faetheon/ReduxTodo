@@ -1,7 +1,7 @@
 export interface toDoItem {
+  id?: number,
   title: string,
   content: string,
-  id: number,
-  isChecked: false,
-  createdOn: Date
+  is_checked: false,
+  created_on: string
 }
