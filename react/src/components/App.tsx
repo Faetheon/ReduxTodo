@@ -121,6 +121,7 @@ class App extends React.Component {
           <TitleInput
             type="text"
             name="title"
+            placeholder="ToDo title"
             value={this.state.title}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               this.handleChange(event);
@@ -128,6 +129,7 @@ class App extends React.Component {
           />
           <ContentInput
             name="content"
+            placeholder="Stuff ToDo"
             value={this.state.content}
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
               this.handleChange(event);
