@@ -23,6 +23,13 @@ const AppContainer = styled.div`
   align-items: center;
 `;
 
+const TodoContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+  align-items: left;
+`;
+
 const TitleInput = styled.input`
   flex-grow: 1;
 `;
@@ -128,14 +135,16 @@ class App extends React.Component {
           />
           <SubmitButton type="submit" />
         </Form>
-        {Object.keys(this.props.toDoList).map((toDoKey: string) => (
-          <ToDo
-            updateItem={this.props.updateItem.bind(this)}
-            deleteItem={this.props.deleteItem.bind(this)}
-            attributes={{ ...this.props.toDoList[toDoKey] }}
-            key={this.props.toDoList[toDoKey].id}
-          />
-        ))}
+        <TodoContainer>
+          {Object.keys(this.props.toDoList).map((toDoKey: string) => (
+            <ToDo
+              updateItem={this.props.updateItem.bind(this)}
+              deleteItem={this.props.deleteItem.bind(this)}
+              attributes={{ ...this.props.toDoList[toDoKey] }}
+              key={this.props.toDoList[toDoKey].id}
+            />
+          ))}
+        </TodoContainer>
       </AppContainer>
     );
   }
