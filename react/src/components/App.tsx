@@ -16,6 +16,10 @@ const Form = styled.form`
   width: 200px;
 `;
 
+const AppHeader = styled.h1`
+  display: flex;
+`;
+
 const AppContainer = styled.div`
   display: flex;
   flex-flow: column;
@@ -36,10 +40,13 @@ const TitleInput = styled.input`
 
 const ContentInput = styled.textarea`
   flex-grow: 23;
+  margin-top: 5px;
+  font: 400 13.3333px Arial;
   resize: none;
 `;
 
 const SubmitButton = styled.input`
+  margin-top: 5px;
   align-self: center;
   width: fit-content;
   height: fit-content;
@@ -111,6 +118,7 @@ class App extends React.Component {
   render() {
     return (
       <AppContainer>
+        <AppHeader>Redux Todo</AppHeader>
         <Form
           autoComplete="off"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
