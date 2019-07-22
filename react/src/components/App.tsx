@@ -1,42 +1,60 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
+// Imported components
 import ToDo from "./ToDo";
 
+// Imported Redux
 import { reduxStore } from "../interfaces/reduxStore";
 import ACTIONS from "../redux/actions";
+
+// Imported Helper Functions
 import populateStateFromDatabase from "../helperFunctions/populateStateFromDatabase";
 
-const Form = styled.form`
-  display: flex;
-  flex-flow: column;
-  align-self: center;
-  height: 200px;
-  width: 200px;
-`;
+// Imported typescript interfaces
+import { toDoItem } from "../interfaces/toDoItem";
+import { appProps } from '../interfaces/App';
 
-const AppContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-self: center;
-  align-items: center;
-`;
+// Imported styled components
+import {
+  Form,
+  AppContainer,
+  TitleInput,
+  ContentInput,
+  SubmitButton,
+  CheckedTodoContainer,
+  UncheckedTodoContainer,
+  TitleAndButtonContainer
+} from '../styledComponents/App';
+// const Form = styled.form`
+//   display: flex;
+//   flex-flow: column;
+//   align-self: center;
+//   height: 200px;
+//   width: 200px;
+// `;
 
-const TitleInput = styled.input`
-  flex-grow: 1;
-`;
+// const AppContainer = styled.div`
+//   display: flex;
+//   flex-flow: column;
+//   align-self: center;
+//   align-items: center;
+// `;
 
-const ContentInput = styled.textarea`
-  flex-grow: 23;
-  resize: none;
-`;
+// const TitleInput = styled.input`
+//   flex-grow: 1;
+// `;
 
-const SubmitButton = styled.input`
-  align-self: center;
-  width: fit-content;
-  height: fit-content;
-`;
+// const ContentInput = styled.textarea`
+//   flex-grow: 23;
+//   resize: none;
+// `;
+
+// const SubmitButton = styled.input`
+//   align-self: center;
+//   width: fit-content;
+//   height: fit-content;
+// `;
 
 const mapStateToProps = (state: reduxStore) => ({
   toDoList: state.toDoList
@@ -54,19 +72,13 @@ const mapDispatchToProps = (dispatch: Function) => ({
   populateState: (id: number, title: string, content: string, is_checked: boolean, created_on: string) => dispatch(ACTIONS.populateState(id, title, content, is_checked, created_on))
 });
 
-interface appProps {
-  createItem: Function;
-  deleteItem: Function;
-  updateItem: Function;
-  populateState: Function
-  toDoList: any;
-}
-
 interface App {
   props: appProps;
   state: {
     title: string;
     content: string;
+    checkedTodos: Array<toDoItem>
+    uncheckedTodos: Array<toDoItem>
   };
   handleSubmit: Function;
   handleChange: Function;
@@ -78,6 +90,8 @@ class App extends React.Component {
     this.state = {
       title: "",
       content: "",
+      checkedTodos: [],
+      uncheckedTodos: []
     };
 
     this.handleSubmit = () => {
@@ -99,6 +113,16 @@ class App extends React.Component {
 
   componentWillMount() {
     populateStateFromDatabase(this.props.populateState.bind(this));
+  }
+
+  componentDidMount() {
+    const toDoList = this.props.toDoList;
+    Object.keys(toDoList).map((toDoKey: string) => (      
+      this.state.uncheckedTodos.push(toDoList[toDoKey])
+    ))
+    Object.keys(toDoList).map((toDoKey: string) => (
+      this.state.checkedTodos.push(toDoList[toDoKey])
+    ))
   }
 
   render() {
@@ -128,14 +152,29 @@ class App extends React.Component {
           />
           <SubmitButton type="submit" />
         </Form>
-        {Object.keys(this.props.toDoList).map((toDoKey: string) => (
-          <ToDo
-            updateItem={this.props.updateItem.bind(this)}
-            deleteItem={this.props.deleteItem.bind(this)}
-            attributes={{ ...this.props.toDoList[toDoKey] }}
-            key={this.props.toDoList[toDoKey].id}
-          />
-        ))}
+        <TitleAndButtonContainer>
+
+        </TitleAndButtonContainer>
+        <CheckedTodoContainer>
+        {Object.keys(this.state.checkedTodos).map((toDoKey: string) => (
+            <ToDo
+              updateItem={this.props.updateItem.bind(this)}
+              deleteItem={this.props.deleteItem.bind(this)}
+              attributes={{ ...this.props.toDoList[toDoKey] }}
+              key={this.props.toDoList[toDoKey].id}
+            />
+          ))}          
+        </CheckedTodoContainer>
+        <UncheckedTodoContainer>
+          {Object.keys(this.state.uncheckedTodos).map((toDoKey: string) => (
+            <ToDo
+              updateItem={this.props.updateItem.bind(this)}
+              deleteItem={this.props.deleteItem.bind(this)}
+              attributes={{ ...this.props.toDoList[toDoKey] }}
+              key={this.props.toDoList[toDoKey].id}
+            />
+          ))}
+        </UncheckedTodoContainer>
       </AppContainer>
     );
   }
